@@ -8,11 +8,23 @@ body {
   min-width:100vw;
   color: #ffffff;
   text-align: center;
+  padding-top: 15%;
 }
 
 .game{
-  width:40%;
-  height:40%;
+  position: relative;
+    width:40vh;
+    height:40vh;
+    min-width: 400px;
+    min-height: 400px;
     margin: auto;
     border: 1px solid red;
+}
+.game tr{
+    height: 33%;
+    border: 1px solid white;
+}
+.game td{
+    width:33%;
+    border: 1px solid white;
 }
