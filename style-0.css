@@ -56,3 +56,14 @@ body {
 }
 .X1{transform: rotate(45deg) translateY(50%);}
 .X2{transform: rotate(-45deg) translateY(50%);}
+
+.O{
+    position: absolute;
+  top:25%;
+  left:28%;
+  height:45%;
+  width:45%;
+  margin:auto;
+  border:3px solid white;
+  border-radius: 50%;
+}
