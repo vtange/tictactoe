@@ -4,24 +4,25 @@
     <link rel="stylesheet" type="text/css" href="style-0.css"/>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular-animate.js"></script>
 </head>
 <body data-ng-app="Tictac">
   <div class="content">
                         <table class="game" data-ng-controller="MainCtrl as tac">
                             <tr>
-                                <td class="cell" id="1" data-ng-class="{'clickable': checkClickable(1)}" data-ng-click="draw(1)"><div class="entry"><div class="X1"></div><div class="X2"></div></div></td>
-                                <td class="cell" id="2" data-ng-class="{'clickable': checkClickable(2)}" data-ng-click="draw(2)"><div class="entry"><div class="O"></div></div></td>
-                                <td class="cell" id="3" data-ng-class="{'clickable': checkClickable(3)}" data-ng-click="draw(3)"></td>
+                                <td class="cell" id="1" data-ng-class="{'clickable': checkClickable(1)}" data-ng-click="draw(1)"><div class="entry"><div data-ng-if="checkX(1)" class="X1"></div><div data-ng-if="checkX(1)" class="X2"></div><div data-ng-if="checkO(1)" class="O"></div></div></td>
+                                <td class="cell" id="2" data-ng-class="{'clickable': checkClickable(2)}" data-ng-click="draw(2)"><div class="entry"><div data-ng-if="checkX(2)" class="X1"></div><div data-ng-if="checkX(2)" class="X2"></div><div data-ng-if="checkO(2)" class="O"></div></div></td>
+                                <td class="cell" id="3" data-ng-class="{'clickable': checkClickable(3)}" data-ng-click="draw(3)"><div class="entry"><div data-ng-if="checkX(3)" class="X1"></div><div data-ng-if="checkX(3)" class="X2"></div><div data-ng-if="checkO(3)" class="O"></div></div></td>
                             </tr>
                             <tr>
-                                <td class="cell" id="4" data-ng-class="{'clickable': checkClickable(4)}" data-ng-click="draw(4)">4</td>
-                                <td class="cell" id="5" data-ng-class="{'clickable': checkClickable(5)}" data-ng-click="draw(5)">5</td>
-                                <td class="cell" id="6" data-ng-class="{'clickable': checkClickable(6)}" data-ng-click="draw(6)">6</td>
+                                <td class="cell" id="4" data-ng-class="{'clickable': checkClickable(4)}" data-ng-click="draw(4)"><div class="entry"><div data-ng-if="checkX(4)" class="X1"></div><div data-ng-if="checkX(4)" class="X2"></div><div data-ng-if="checkO(4)" class="O"></div></div></td>
+                                <td class="cell" id="5" data-ng-class="{'clickable': checkClickable(5)}" data-ng-click="draw(5)"><div class="entry"><div data-ng-if="checkX(5)" class="X1"></div><div data-ng-if="checkX(5)" class="X2"></div><div data-ng-if="checkO(5)" class="O"></div></div></td>
+                                <td class="cell" id="6" data-ng-class="{'clickable': checkClickable(6)}" data-ng-click="draw(6)"><div class="entry"><div data-ng-if="checkX(6)" class="X1"></div><div data-ng-if="checkX(6)" class="X2"></div><div data-ng-if="checkO(6)" class="O"></div></div></td>
                             </tr>
                             <tr>
-                                <td class="cell" id="7" data-ng-class="{'clickable': checkClickable(7)}" data-ng-click="draw(7)">7</td>
-                                <td class="cell" id="8" data-ng-class="{'clickable': checkClickable(8)}" data-ng-click="draw(8)">8</td>
-                                <td class="cell" id="9" data-ng-class="{'clickable': checkClickable(9)}" data-ng-click="draw(9)">9</td>
+                                <td class="cell" id="7" data-ng-class="{'clickable': checkClickable(7)}" data-ng-click="draw(7)"><div class="entry"><div data-ng-if="checkX(7)" class="X1"></div><div data-ng-if="checkX(7)" class="X2"></div><div data-ng-if="checkO(7)" class="O"></div></div></td>
+                                <td class="cell" id="8" data-ng-class="{'clickable': checkClickable(8)}" data-ng-click="draw(8)"><div class="entry"><div data-ng-if="checkX(8)" class="X1"></div><div data-ng-if="checkX(8)" class="X2"></div><div data-ng-if="checkO(8)" class="O"></div></div></td>
+                                <td class="cell" id="9" data-ng-class="{'clickable': checkClickable(9)}" data-ng-click="draw(9)"><div class="entry"><div data-ng-if="checkX(9)" class="X1"></div><div data-ng-if="checkX(9)" class="X2"></div><div data-ng-if="checkO(9)" class="O"></div></div></td>
                             </tr>
                         </table>
   </div>

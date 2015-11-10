@@ -45,7 +45,15 @@ body {
     right:0;
     bottom:0;
 }
-
+.fadeOut {
+    opacity:0;
+}
+.fadeIn {
+    opacity:1;
+}
+.slideIn {
+    transform: translateY(50%);
+}
 .X1, .X2{
   background: #fff;
   height: 50%;
@@ -53,9 +61,18 @@ body {
   position: absolute;
   transform-origin: 50% 100%;
   width: 2.5%;
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
 }
 .X1{transform: rotate(45deg) translateY(50%);}
 .X2{transform: rotate(-45deg) translateY(50%);}
+
+
+
+
 
 .O{
     position: absolute;

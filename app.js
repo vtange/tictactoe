@@ -1,6 +1,6 @@
 (function() {
     //start of function
-  var app = angular.module('Tictac', []);
+  var app = angular.module('Tictac', ['ngAnimate']);
 
 app.factory('memory', function(){
 
