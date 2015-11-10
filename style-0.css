@@ -28,10 +28,32 @@ body {
     width:33%;
     border: 1px solid white;
 }
+.cell{
+    position: relative;
+}
 .cell:hover{
     background-color: rgba(0,255,0,0.5);
     transition: all 0.1s ease-in-out;
 }
 .clickable{
     cursor: pointer;   
+}
+.X1{
+  background: #fff;
+  height: 20%;
+  left: 48.75%;
+  position: absolute;
+  top: 30%;
+  transform-origin: 50% 100%;
+  width: 2.5%;
+  @include transform(rotate(-45deg));
+}
+.X2{
+  background: #fff;
+  height: 20%;
+  left: 48.75%;
+  position: absolute;
+  top: 30%;
+  transform-origin: 50% 100%;
+  width: 2.5%;
 }
