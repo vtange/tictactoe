@@ -26,8 +26,13 @@ app.controller('MainCtrl', ['$scope', 'memory', function($scope, memory){
         console.log($scope.Xed);
         console.log($scope.Oed);
         console.log($scope.blanks);
-    }
-    
+    };
+    $scope.checkX = function(cellnum){
+        if ($scope.Xed.indexOf(cellnum) != -1){ return true; }else{return false;};
+    };
+    $scope.checkO = function(cellnum){
+        if ($scope.Oed.indexOf(cellnum) != -1){ return true; }else{return false;};
+    };
     
     
     

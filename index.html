@@ -9,19 +9,19 @@
   <div class="content">
                         <table class="game" data-ng-controller="MainCtrl as tac">
                             <tr>
-                                <td class="cell" id="1" data-ng-class="{}" data-ng-click="draw(1)">1</td>
-                                <td class="cell" id="2" data-ng-class="{}" data-ng-click="draw(2)">2</td>
-                                <td class="cell" id="3" data-ng-class="{}" data-ng-click="draw(3)">3</td>
+                                <td class="cell" id="1" data-ng-class="{'Xed': checkX(1), 'Oed': checkO(1)}" data-ng-click="draw(1)">1</td>
+                                <td class="cell" id="2" data-ng-class="{'Xed': checkX(2), 'Oed': checkO(2)}" data-ng-click="draw(2)">2</td>
+                                <td class="cell" id="3" data-ng-class="{'Xed': checkX(3), 'Oed': checkO(3)}" data-ng-click="draw(3)">3</td>
                             </tr>
                             <tr>
-                                <td class="cell" id="4" data-ng-class="{}" data-ng-click="draw(4)">4</td>
-                                <td class="cell" id="5" data-ng-class="{}" data-ng-click="draw(5)">5</td>
-                                <td class="cell" id="6" data-ng-class="{}" data-ng-click="draw(6)">6</td>
+                                <td class="cell" id="4" data-ng-class="{'Xed': checkX(4), 'Oed': checkO(4)}" data-ng-click="draw(4)">4</td>
+                                <td class="cell" id="5" data-ng-class="{'Xed': checkX(5), 'Oed': checkO(5)}" data-ng-click="draw(5)">5</td>
+                                <td class="cell" id="6" data-ng-class="{'Xed': checkX(6), 'Oed': checkO(6)}" data-ng-click="draw(6)">6</td>
                             </tr>
                             <tr>
-                                <td class="cell" id="7" data-ng-class="{}" data-ng-click="draw(7)">7</td>
-                                <td class="cell" id="8" data-ng-class="{}" data-ng-click="draw(8)">8</td>
-                                <td class="cell" id="9" data-ng-class="{}" data-ng-click="draw(9)">9</td>
+                                <td class="cell" id="7" data-ng-class="{'Xed': checkX(7), 'Oed': checkO(7)}" data-ng-click="draw(7)">7</td>
+                                <td class="cell" id="8" data-ng-class="{'Xed': checkX(8), 'Oed': checkO(8)}" data-ng-click="draw(8)">8</td>
+                                <td class="cell" id="9" data-ng-class="{'Xed': checkX(9), 'Oed': checkO(9)}" data-ng-click="draw(9)">9</td>
                             </tr>
                         </table>
   </div>
