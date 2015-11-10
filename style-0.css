@@ -38,22 +38,21 @@ body {
 .clickable{
     cursor: pointer;   
 }
-.X1{
-  background: #fff;
-  height: 20%;
-  left: 48.75%;
-  position: absolute;
-  top: 30%;
-  transform-origin: 50% 100%;
-  width: 2.5%;
-  @include transform(rotate(-45deg));
+.entry{
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
 }
-.X2{
+
+.X1, .X2{
   background: #fff;
-  height: 20%;
-  left: 48.75%;
+  height: 50%;
+  left:50%;
   position: absolute;
-  top: 30%;
   transform-origin: 50% 100%;
   width: 2.5%;
 }
+.X1{transform: rotate(45deg) translateY(50%);}
+.X2{transform: rotate(-45deg) translateY(50%);}
