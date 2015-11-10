@@ -45,14 +45,11 @@ body {
     right:0;
     bottom:0;
 }
-.fadeOut {
+.ng-enter {
     opacity:0;
 }
-.fadeIn {
-    opacity:1;
-}
-.slideIn {
-    transform: translateY(50%);
+.ng-enter .ng-enter-active {
+    opacity:0;
 }
 .X1, .X2{
   background: #fff;
@@ -61,17 +58,14 @@ body {
   position: absolute;
   transform-origin: 50% 100%;
   width: 2.5%;
-  -webkit-transition: all 1s ease;
-  -moz-transition: all 1s ease;
-  -ms-transition: all 1s ease;
-  -o-transition: all 1s ease;
-  transition: all 1s ease;
+  -webkit-transition: all .1s ease;
+  -moz-transition: all .1s ease;
+  -ms-transition: all .1s ease;
+  -o-transition: all .1s ease;
+  transition: all .1s ease;
 }
 .X1{transform: rotate(45deg) translateY(50%);}
 .X2{transform: rotate(-45deg) translateY(50%);}
-
-
-
 
 
 .O{
@@ -83,4 +77,9 @@ body {
   margin:auto;
   border:3px solid white;
   border-radius: 50%;
+  -webkit-transition: all .1s ease;
+  -moz-transition: all .1s ease;
+  -ms-transition: all .1s ease;
+  -o-transition: all .1s ease;
+  transition: all .1s ease;
 }
