@@ -45,10 +45,7 @@ body {
     right:0;
     bottom:0;
 }
-.ng-enter {
-    opacity:0;
-}
-.ng-enter .ng-enter-active {
+.ng-animate {
     opacity:0;
 }
 .X1, .X2{
