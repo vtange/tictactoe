@@ -1,6 +1,6 @@
 (function() {
     //start of function
-  var app = angular.module('Tictac', ['ngAnimate']);
+  var app = angular.module('Tictac', ['ngAnimate', 'ngAlertify']);
 
 app.factory('memory', function(){
 
@@ -10,10 +10,29 @@ app.factory('memory', function(){
   return storage;
 });//end of service
 
-app.controller('MainCtrl', ['$scope', 'memory', function($scope, memory){
+app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, memory, alertify){
     $scope.storage = memory; // load service
-    $scope.player = "X";
-    $scope.AI = "O";
+    $scope.player = alertify
+  .okBtn("Accept")
+  .cancelBtn("Deny")
+  .confirm("Confirm dialog with custom button labels", function (ev) {
+
+      // The click event is in the
+      // event variable, so you can use
+      // it here.
+      ev.preventDefault();
+      alertify.success("You've clicked OK");
+
+  }, function(ev) {
+
+      // The click event is in the
+      // event variable, so you can use
+      // it here.
+      ev.preventDefault();
+
+      alertify.error("You've clicked Cancel");
+
+  });
     $scope.turn = 1;
     $scope.Xed = [];
     $scope.Oed = [];
