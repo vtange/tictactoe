@@ -27,6 +27,9 @@ app.controller('MainCtrl', ['$scope', 'memory', function($scope, memory){
         console.log($scope.Oed);
         console.log($scope.blanks);
     };
+    $scope.checkClickable = function(cellnum){
+        if ($scope.blanks.indexOf(cellnum) != -1){ return true; }else{return false;};
+    };
     $scope.checkX = function(cellnum){
         if ($scope.Xed.indexOf(cellnum) != -1){ return true; }else{return false;};
     };

@@ -32,12 +32,6 @@ body {
     background-color: rgba(0,255,0,0.5);
     transition: all 0.1s ease-in-out;
 }
-.cell .clickable{
+.clickable{
     cursor: pointer;   
-}
-.cell .Xed{
-    content: "X";
-}
-.cell .Oed{
-    content: "O";
 }
