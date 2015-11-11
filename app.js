@@ -36,7 +36,7 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
       alertify.error("You are X's");
 
   });
-    $scope.turn = 1;
+    $scope.whoseTurn = 1;
     $scope.Xed = [];
     $scope.Oed = [];
     $scope.blanks = [1,2,3,4,5,6,7,8,9];
@@ -116,6 +116,17 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
             alert("O wins.");
             $scope.resetBoard();
         }
+        /*//to make this work, have whoseTurn cycle during start and end of ComputerTurn function.
+        if (XWon() == true || OWon() == true){
+            if (whoseTurn == 1){
+                alert("You won.");
+            }
+            if (whoseTurn == 2){
+                alert("The Computer won.");
+            }
+            $scope.resetBoard();
+        }
+        */
         //reset board if draw, full board
         if ($scope.blanks === []){
             alert("Draw.");
