@@ -75,8 +75,8 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
     $scope.computerTurn = function(){
         $scope.whoseTurn = 2;
         var victoryConditions = [[1,2,3],[4,5,6],[7,8,9],[9,6,3],[8,5,2],[7,4,1],[1,5,9],[7,5,3]];
-        var justNeed = [];  // offense priority
-        var mustBlock = []; // defense priority
+        var justNeed = [[100]];  // offense priority, 100 is placeholder
+        var mustBlock = [[100]]; // defense priority, 100 is placeholder
         //check what X has
         var XalreadyGot = function (input) {
           return $scope.Xed.indexOf(input) == -1;
@@ -86,7 +86,7 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
           return $scope.Oed.indexOf(input) == -1;
         };
         var onlyOnes = function (input) {
-          return input.length < 2;
+          return input.length == 1;
         };
         if ($scope.computer == 1){ // if Computer is O
             for (var i=0;i<victoryConditions.length;i++){
@@ -96,26 +96,31 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
                  justNeed.push(victoryConditions[i].filter(OalreadyGot));
             }
             justNeed = justNeed.sort(function(a,b){ return b.length > a.length;});
-            //justNeed = justNeed.filter(onlyOnes);
-            console.log(justNeed.filter(onlyOnes));
-            justNeedNum = parseInt(justNeed.pop().join(""),10);
+            justNeed = justNeed.filter(onlyOnes);
+
             mustBlock = mustBlock.sort(function(a,b){ return b.length > a.length;});
-            //mustBlock = mustBlock.filter(onlyOnes);
-            console.log(mustBlock.filter(onlyOnes));
-            mustBlockNum = parseInt(mustBlock.pop().join(""),10);
+            mustBlock = mustBlock.filter(onlyOnes);
             //movement phase
-                    if (justNeedNum.toString().length < 2 && $scope.blanks.indexOf(justNeedNum) != -1){ //win first.
-                        console.log("attacking" + justNeedNum);
-                        $scope.compDraw(justNeedNum);
-                    }
-                    else if (mustBlockNum.toString().length < 2 && $scope.blanks.indexOf(mustBlockNum) != -1){   //defend second,
-                        console.log("defending" + mustBlockNum);
-                        $scope.compDraw(mustBlockNum);
-                    }
-                    else{           //choose a random index from the available scope.blanks
-                        $scope.compDraw($scope.blanks[Math.floor(Math.random() * ($scope.blanks.length))]);
-                        console.log("meh. " + mustBlockNum + " vs "+ justNeedNum);
-                    }
+            if (justNeed.length > 1){               //win first.
+                for (var k=1;k<justNeed.length;k++){//cycle attack options
+                        if ($scope.blanks.indexOf(parseInt(justNeed[k].join(""),10) != -1)){
+                            console.log("attacking" + parseInt(justNeed[k].join(""),10));
+                            $scope.compDraw(parseInt(justNeed[k].join(""),10));
+                        }
+                }
+            }
+            else if (mustBlock.length > 1){         //defend second,
+                for (var k=1;k<mustBlock.length;k++){//cycle defense options
+                        if ($scope.blanks.indexOf(parseInt(mustBlock[k].join(""),10) != -1)){
+                            console.log("defending" + parseInt(mustBlock[k].join(""),10));
+                            $scope.compDraw(parseInt(mustBlock[k].join(""),10));
+                        }
+                }
+            }
+            else{           //choose a random index from the available scope.blanks
+                $scope.compDraw($scope.blanks[Math.floor(Math.random() * ($scope.blanks.length))]);
+                console.log("meh. ");
+            }
         }
         else { // if Computer is X
             for (var i=0;i<victoryConditions.length;i++){
