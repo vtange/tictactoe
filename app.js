@@ -172,7 +172,7 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
         }
         */
         //reset board if draw, full board
-        if ($scope.blanks === []){
+        if ($scope.blanks.length<1){
             alert("Draw.");
             $scope.resetBoard();
         }
