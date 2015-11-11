@@ -58,6 +58,7 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
         console.log($scope.blanks);
         $scope.checkVictoryFull();
         //start computer turn function
+        //the two above should actually be in the player action ^ brackets (both), this ensures player makes a move (not click on already clicked)
     };
     $scope.computerTurn = function(){
         $scope.whoseTurn = 2;
@@ -95,6 +96,7 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
             }
             return winningPattern;
         };
+        // how about just check Xed or Oed(depending on who the comp is) against victory conditions (filter out Xed/Oed from Victory conditions) and choose the shortest one?
         $scope.checkVictoryFull();
         $scope.whoseTurn = 1;
     };
