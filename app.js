@@ -41,24 +41,36 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
     $scope.Oed = [];
     $scope.blanks = [1,2,3,4,5,6,7,8,9];
     $scope.draw = function(cellNum){
-        if ($scope.player == 1){
+        if ($scope.player == 1){// if Player is O
+            if ($scope.Oed.indexOf(cellNum) == -1){
+                $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);
+                $scope.Oed.push(cellNum);
+                $scope.checkVictoryFull();
+                $scope.computerTurn();
+            }
+        }
+        if ($scope.player == 2){// if Player is X
+            if ($scope.Xed.indexOf(cellNum) == -1){
+                $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);
+                $scope.Xed.push(cellNum);
+                $scope.checkVictoryFull();
+                $scope.computerTurn();
+            }
+        }
+    };
+    $scope.compDraw = function(cellNum){
+        if ($scope.computer == 1){// if Computer is O
             if ($scope.Oed.indexOf(cellNum) == -1){
                 $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);
                 $scope.Oed.push(cellNum);
             }
         }
-        if ($scope.player == 2){
+        if ($scope.computer == 2){// if Computer is X
             if ($scope.Xed.indexOf(cellNum) == -1){
                 $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);
                 $scope.Xed.push(cellNum);
             }
         }
-        console.log($scope.Xed);
-        console.log($scope.Oed);
-        console.log($scope.blanks);
-        $scope.checkVictoryFull();
-        //start computer turn function
-        //the two above should actually be in the player action ^ brackets (both), this ensures player makes a move (not click on already clicked)
     };
     $scope.computerTurn = function(){
         $scope.whoseTurn = 2;
@@ -67,11 +79,11 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
         var mustBlock = []; // defense priority
         //check what X has
         var XalreadyGot = function (input) {
-          return Xed.indexOf(input) == -1;
+          return $scope.Xed.indexOf(input) == -1;
         };
         //check what O has
         var OalreadyGot = function (input) {
-          return Oed.indexOf(input) == -1;
+          return $scope.Oed.indexOf(input) == -1;
         };
         if ($scope.computer == 1){ // if Computer is O
             for (var i=0;i<victoryConditions.length;i++){
@@ -97,14 +109,14 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
             mustBlock = mustBlock.sort(function(a,b){ return b.length > a.length;});
             mustBlock = parseInt(mustBlock.pop().join(""),10);
         }
-        if (mustBlock.pop().join("").length < 2){   //defend first,
-            $scope.draw(mustBlock);
+        if (mustBlock.length < 2){   //defend first,
+            $scope.compDraw(mustBlock);
         }
-        else if (justNeed.pop().join("").length < 2){ //then win.
-            $scope.draw(justNeed);
+        else if (justNeed.length < 2){ //then win.
+            $scope.compDraw(justNeed);
         }
         else{
-            $scope.draw($scope.blanks[Math.floor(Math.random() * ($scope.blanks.length))]);
+            $scope.compDraw($scope.blanks[Math.floor(Math.random() * ($scope.blanks.length))]);
         }
         // how about just check Xed or Oed(depending on who the comp is) against victory conditions (filter out Xed/Oed from Victory conditions) and choose the shortest one?
         $scope.checkVictoryFull();
@@ -140,8 +152,6 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
             }
             return forReal;
         };
-        console.log(XWon());
-        console.log(OWon());
         if (XWon() == true){
             alert("X wins.");
             $scope.resetBoard();
