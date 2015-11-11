@@ -42,17 +42,17 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
     $scope.blanks = [1,2,3,4,5,6,7,8,9];
     $scope.draw = function(cellNum){
         if ($scope.player == 1){// if Player is O
-            if ($scope.Oed.indexOf(cellNum) == -1){
-                $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);
-                $scope.Oed.push(cellNum);
+            if ($scope.blanks.indexOf(cellNum) != -1){//if cellNum is blank
+                $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);//remove from blank
+                $scope.Oed.push(cellNum);//add to O list
                 $scope.checkVictoryFull();
                 $scope.computerTurn();
             }
         }
         if ($scope.player == 2){// if Player is X
-            if ($scope.Xed.indexOf(cellNum) == -1){
-                $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);
-                $scope.Xed.push(cellNum);
+            if ($scope.blanks.indexOf(cellNum) != -1){//if cellNum is blank
+                $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);//remove from blank
+                $scope.Xed.push(cellNum);//add to X list
                 $scope.checkVictoryFull();
                 $scope.computerTurn();
             }
@@ -60,15 +60,15 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
     };
     $scope.compDraw = function(cellNum){
         if ($scope.computer == 1){// if Computer is O
-            if ($scope.Oed.indexOf(cellNum) == -1){
-                $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);
-                $scope.Oed.push(cellNum);
+            if ($scope.blanks.indexOf(cellNum) != -1){//if cellNum is blank
+                $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);//remove from blank
+                $scope.Oed.push(cellNum);//add to O list
             }
         }
         if ($scope.computer == 2){// if Computer is X
-            if ($scope.Xed.indexOf(cellNum) == -1){
-                $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);
-                $scope.Xed.push(cellNum);
+            if ($scope.blanks.indexOf(cellNum) != -1){//if cellNum is blank
+                $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);//remove from blank
+                $scope.Xed.push(cellNum);//add to X list
             }
         }
     };
@@ -115,7 +115,7 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
         else if (justNeed.length < 2){ //then win.
             $scope.compDraw(justNeed);
         }
-        else{
+        else{           //choose a random index from the available scope.blanks
             $scope.compDraw($scope.blanks[Math.floor(Math.random() * ($scope.blanks.length))]);
         }
         // how about just check Xed or Oed(depending on who the comp is) against victory conditions (filter out Xed/Oed from Victory conditions) and choose the shortest one?
