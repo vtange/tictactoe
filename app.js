@@ -93,23 +93,23 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
                  justNeed.push(victoryConditions[i].filter(OalreadyGot));
             }
             justNeed = justNeed.sort(function(a,b){ return b.length > a.length;});
-            justNeed = parseInt(justNeed.pop().join(""),10);
+            justNeedNum = parseInt(justNeed.pop().join(""),10);
             mustBlock = mustBlock.sort(function(a,b){ return b.length > a.length;});
-            mustBlock = parseInt(mustBlock.pop().join(""),10);
+            mustBlockNum = parseInt(mustBlock.pop().join(""),10);
             //movement phase
-                    if (mustBlock.toString().length < 2 && $scope.blanks.indexOf(mustBlock) != -1){   //defend first,
-                        console.log(mustBlock);
-                        console.log("defending" + mustBlock);
-                        $scope.compDraw(mustBlock);
+                    if (mustBlockNum.toString().length < 2 && $scope.blanks.indexOf(mustBlockNum) != -1){   //defend first,
+                        console.log(mustBlockNum);
+                        console.log("defending" + mustBlockNum);
+                        $scope.compDraw(mustBlockNum);
                     }
-                    else if (justNeed.toString().length < 2 && $scope.blanks.indexOf(justNeed) != -1){ //then win.
-                        console.log(justNeed);
-                        console.log("attacking" + justNeed);
-                        $scope.compDraw(justNeed);
+                    else if (justNeedNum.toString().length < 2 && $scope.blanks.indexOf(justNeedNum) != -1){ //then win.
+                        console.log(justNeedNum);
+                        console.log("attacking" + justNeedNum);
+                        $scope.compDraw(justNeedNum);
                     }
                     else{           //choose a random index from the available scope.blanks
                         $scope.compDraw($scope.blanks[Math.floor(Math.random() * ($scope.blanks.length))]);
-                        console.log("meh." + mustBlock);
+                        console.log("meh.");
                     }
         }
         else { // if Computer is X
@@ -120,19 +120,19 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
                  mustBlock.push(victoryConditions[i].filter(OalreadyGot));
             }
             justNeed = justNeed.sort(function(a,b){ return b.length > a.length;});
-            justNeed = parseInt(justNeed.pop().join(""),10);
+            justNeedNum = parseInt(justNeed.pop().join(""),10);
             mustBlock = mustBlock.sort(function(a,b){ return b.length > a.length;});
-            mustBlock = parseInt(mustBlock.pop().join(""),10);
+            mustBlockNum = parseInt(mustBlock.pop().join(""),10);
             //movement phase
-                    if (mustBlock.toString().length < 2 && $scope.blanks.indexOf(mustBlock) != -1){   //defend first,
-                        console.log(mustBlock);
-                        console.log("defending" + mustBlock);
-                        $scope.compDraw(mustBlock);
+                    if (mustBlockNum.toString().length < 2 && $scope.blanks.indexOf(mustBlockNum) != -1){   //defend first,
+                        console.log(mustBlockNum);
+                        console.log("defending" + mustBlockNum);
+                        $scope.compDraw(mustBlockNum);
                     }
-                    else if (justNeed.toString().length < 2 && $scope.blanks.indexOf(justNeed) != -1){ //then win.
-                        console.log(justNeed);
-                        console.log("attacking" + justNeed);
-                        $scope.compDraw(justNeed);
+                    else if (justNeedNum.toString().length < 2 && $scope.blanks.indexOf(justNeedNum) != -1){ //then win.
+                        console.log(justNeedNum);
+                        console.log("attacking" + justNeedNum);
+                        $scope.compDraw(justNeedNum);
                     }
                     else{           //choose a random index from the available scope.blanks
                         $scope.compDraw($scope.blanks[Math.floor(Math.random() * ($scope.blanks.length))]);
