@@ -41,16 +41,38 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
     $scope.Oed = [];
     $scope.blanks = [1,2,3,4,5,6,7,8,9];
     $scope.draw = function(cellNum){
-        
-        
-        
-        if ($scope.Xed.indexOf(cellNum) == -1){
-            $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);
-            $scope.Xed.push(cellNum);
+        if ($scope.player == 1){
+            if ($scope.Oed.indexOf(cellNum) == -1){
+                $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);
+                $scope.Oed.push(cellNum);
+            }
+        }
+        if ($scope.player == 2){
+            if ($scope.Xed.indexOf(cellNum) == -1){
+                $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);
+                $scope.Xed.push(cellNum);
+            }
         }
         console.log($scope.Xed);
         console.log($scope.Oed);
         console.log($scope.blanks);
+        //check if board is  full or victory
+        //start computer turn function
+    };
+    $scope.computerTurn = function(){
+        if ($scope.computer == 1){
+            if ($scope.Oed.indexOf(cellNum) == -1){
+                $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);
+                $scope.Oed.push(cellNum);
+            }
+        }
+        if ($scope.computer == 2){
+            if ($scope.Xed.indexOf(cellNum) == -1){
+                $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);
+                $scope.Xed.push(cellNum);
+            }
+        }
+        //check if board is  full or victory
     };
     $scope.checkClickable = function(cellnum){
         if ($scope.blanks.indexOf(cellnum) != -1){ return true; }else{return false;};
@@ -61,8 +83,7 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
     $scope.checkO = function(cellnum){
         if ($scope.Oed.indexOf(cellnum) != -1){ return true; }else{return false;};
     };
-    
-    
+
     
     
 }]);//end of controller
