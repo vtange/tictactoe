@@ -108,16 +108,25 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
         };
         console.log(XWon());
         console.log(OWon());
-        
+        if (XWon() == true){
+            alert("X wins.");
+            $scope.resetBoard();
+        }
+        if (OWon() == true){
+            alert("O wins.");
+            $scope.resetBoard();
+        }
         //reset board if draw, full board
         if ($scope.blanks === []){
             alert("Draw.");
+            $scope.resetBoard();
+        }
+    };
+    $scope.resetBoard = function(){
             $scope.Xed = [];
             $scope.Oed = [];
             $scope.blanks = [1,2,3,4,5,6,7,8,9];
-        }
     };
-    
     
 }]);//end of controller
   //end of function
