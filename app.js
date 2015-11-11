@@ -103,12 +103,10 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
             mustBlockNum = parseInt(mustBlock.pop().join(""),10);
             //movement phase
                     if (justNeedNum.toString().length < 2 && $scope.blanks.indexOf(justNeedNum) != -1){ //win first.
-                        console.log(justNeedNum);
                         console.log("attacking" + justNeedNum);
                         $scope.compDraw(justNeedNum);
                     }
                     else if (mustBlockNum.toString().length < 2 && $scope.blanks.indexOf(mustBlockNum) != -1){   //defend second,
-                        console.log(mustBlockNum);
                         console.log("defending" + mustBlockNum);
                         $scope.compDraw(mustBlockNum);
                     }
@@ -132,12 +130,10 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
             mustBlockNum = parseInt(mustBlock.pop().join(""),10);
             //movement phase
                     if (justNeedNum.toString().length < 2 && $scope.blanks.indexOf(justNeedNum) != -1){ //win first.
-                        console.log(justNeedNum);
                         console.log("attacking" + justNeedNum);
                         $scope.compDraw(justNeedNum);
                     }
                     else if (mustBlockNum.toString().length < 2 && $scope.blanks.indexOf(mustBlockNum) != -1){   //defend second,
-                        console.log(mustBlockNum);
                         console.log("defending" + mustBlockNum);
                         $scope.compDraw(mustBlockNum);
                     }
