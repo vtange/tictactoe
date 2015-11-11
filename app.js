@@ -62,40 +62,39 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
     };
     $scope.computerTurn = function(){
         $scope.whoseTurn = 2;
-        //nearvictory == 12 45 78 23 56 89 74 85 96 14 25 36 15 75 95 35 19 73 71 93 79 13
-        var nearVictory = [[1,2],[4,5],[7,8],[2,3],[5,6],[8,9],[7,4],[8,5],[9,6],[1,4],[2,5],[3,6],[1,5],[7,5],[9,5],[3,5],[1,9],[7,3],[7,1],[9,3],[7,9],[1,3]];
-        var defense = function(){
-            var winningPattern = [];
-            for(var i = 0; i < nearVictory.length; i++){
-                if ($scope.player == 1;){
-                    if (nearVictory[i].every(function (val) { return $scope.Oed.indexOf(val) >= 0; }) == true){
-                        winningPattern = nearVictory[i];
-                    };
-                }
-                if ($scope.player == 2;){
-                    if (nearVictory[i].every(function (val) { return $scope.Xed.indexOf(val) >= 0; }) == true){
-                        winningPattern = nearVictory[i];
-                    };
-                }
-            }
-            return winningPattern;
+        var victoryConditions = [[1,2,3],[4,5,6],[7,8,9],[9,6,3],[8,5,2],[7,4,1],[1,5,9],[7,5,3]];
+        var justNeed = [];  // offense priority
+        var mustBlock = []; // defense priority
+        //check what X has
+        var XalreadyGot = function (input) {
+          return Xed.indexOf(input) == -1;
         };
-        var offense = function(){
-            var winningPattern = [];
-            for(var i = 0; i < nearVictory.length; i++){
-                if ($scope.computer == 1;){
-                    if (nearVictory[i].every(function (val) { return $scope.Xed.indexOf(val) >= 0; }) == true){
-                        winningPattern = nearVictory[i];
-                    };
-                }
-                if ($scope.computer == 2;){
-                    if (nearVictory[i].every(function (val) { return $scope.Oed.indexOf(val) >= 0; }) == true){
-                        winningPattern = nearVictory[i];
-                    };
-                }
-            }
-            return winningPattern;
+        //check what O has
+        var OalreadyGot = function (input) {
+          return Oed.indexOf(input) == -1;
         };
+        var findNextMove = function(a,b){ return b.length > a.length;};
+        if ($scope.computer == 1){ // if Computer is O
+            for (var i=0;i<victoryConditions.length;i++){
+                //get offense options
+                 mustBlock.push(victoryConditions[i].filter(XalreadyGot));
+                 mustBlock.sort(findNextMove);
+                //get defense options
+                 justNeed.push(victoryConditions[i].filter(OalreadyGot));
+                 justNeed.sort(findNextMove);
+            }
+        }
+        else { // if Computer is X
+            for (var i=0;i<victoryConditions.length;i++){
+                //get offense options
+                 justNeed.push(victoryConditions[i].filter(XalreadyGot));
+                 justNeed.sort(findNextMove);
+                //get defense options
+                 mustBlock.push(victoryConditions[i].filter(OalreadyGot));
+                 mustBlock.sort(findNextMove);
+            }
+        }
+        
         // how about just check Xed or Oed(depending on who the comp is) against victory conditions (filter out Xed/Oed from Victory conditions) and choose the shortest one?
         $scope.checkVictoryFull();
         $scope.whoseTurn = 1;
