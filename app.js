@@ -85,6 +85,9 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
         var OalreadyGot = function (input) {
           return $scope.Oed.indexOf(input) == -1;
         };
+        var onlyOnes = function (input) {
+          return input.length < 2;
+        };
         if ($scope.computer == 1){ // if Computer is O
             for (var i=0;i<victoryConditions.length;i++){
                 //get offense options
@@ -93,8 +96,10 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
                  justNeed.push(victoryConditions[i].filter(OalreadyGot));
             }
             justNeed = justNeed.sort(function(a,b){ return b.length > a.length;});
+            justNeed = justNeed.filter(onlyOnes);
             justNeedNum = parseInt(justNeed.pop().join(""),10);
             mustBlock = mustBlock.sort(function(a,b){ return b.length > a.length;});
+            mustBlock = mustBlock.filter(onlyOnes);
             mustBlockNum = parseInt(mustBlock.pop().join(""),10);
             //movement phase
                     if (justNeedNum.toString().length < 2 && $scope.blanks.indexOf(justNeedNum) != -1){ //win first.
@@ -120,8 +125,10 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
                  mustBlock.push(victoryConditions[i].filter(OalreadyGot));
             }
             justNeed = justNeed.sort(function(a,b){ return b.length > a.length;});
+            justNeed = justNeed.filter(onlyOnes);
             justNeedNum = parseInt(justNeed.pop().join(""),10);
             mustBlock = mustBlock.sort(function(a,b){ return b.length > a.length;});
+            mustBlock = mustBlock.filter(onlyOnes);
             mustBlockNum = parseInt(mustBlock.pop().join(""),10);
             //movement phase
                     if (justNeedNum.toString().length < 2 && $scope.blanks.indexOf(justNeedNum) != -1){ //win first.
