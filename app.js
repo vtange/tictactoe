@@ -96,6 +96,21 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
             justNeed = parseInt(justNeed.pop().join(""),10);
             mustBlock = mustBlock.sort(function(a,b){ return b.length > a.length;});
             mustBlock = parseInt(mustBlock.pop().join(""),10);
+            //movement phase
+                    if (mustBlock.toString().length < 2){   //defend first,
+                        console.log(mustBlock);
+                        console.log("defending" + mustBlock);
+                        $scope.compDraw(mustBlock);
+                    }
+                    else if (justNeed.toString().length < 2){ //then win.
+                        console.log(justNeed);
+                        console.log("attacking" + justNeed);
+                        $scope.compDraw(justNeed);
+                    }
+                    else{           //choose a random index from the available scope.blanks
+                        $scope.compDraw($scope.blanks[Math.floor(Math.random() * ($scope.blanks.length))]);
+                        console.log("meh." + mustBlock);
+                    }
         }
         else { // if Computer is X
             for (var i=0;i<victoryConditions.length;i++){
@@ -108,15 +123,21 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
             justNeed = parseInt(justNeed.pop().join(""),10);
             mustBlock = mustBlock.sort(function(a,b){ return b.length > a.length;});
             mustBlock = parseInt(mustBlock.pop().join(""),10);
-        }
-        if (mustBlock.length < 2){   //defend first,
-            $scope.compDraw(mustBlock);
-        }
-        else if (justNeed.length < 2){ //then win.
-            $scope.compDraw(justNeed);
-        }
-        else{           //choose a random index from the available scope.blanks
-            $scope.compDraw($scope.blanks[Math.floor(Math.random() * ($scope.blanks.length))]);
+            //movement phase
+                    if (mustBlock.toString().length < 2){   //defend first,
+                        console.log(mustBlock);
+                        console.log("defending" + mustBlock);
+                        $scope.compDraw(mustBlock);
+                    }
+                    else if (justNeed.toString().length < 2){ //then win.
+                        console.log(justNeed);
+                        console.log("attacking" + justNeed);
+                        $scope.compDraw(justNeed);
+                    }
+                    else{           //choose a random index from the available scope.blanks
+                        $scope.compDraw($scope.blanks[Math.floor(Math.random() * ($scope.blanks.length))]);
+                        console.log("meh.");
+                    }
         }
         // how about just check Xed or Oed(depending on who the comp is) against victory conditions (filter out Xed/Oed from Victory conditions) and choose the shortest one?
         $scope.checkVictoryFull();
