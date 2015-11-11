@@ -56,7 +56,7 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
         console.log($scope.Xed);
         console.log($scope.Oed);
         console.log($scope.blanks);
-        //check if board is  full or victory
+        $scope.checkVictoryFull();
         //start computer turn function
     };
     $scope.computerTurn = function(){
@@ -86,11 +86,28 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
     $scope.checkVictoryFull = function(){
         //victoryConditions == 123,456,789,963,852,741,159,753
         var victoryConditions = [[1,2,3],[4,5,6],[7,8,9],[9,6,3],[8,5,2],[7,4,1],[1,5,9],[7,5,3]];
-        //nearvictory == 12 45 78 23 56 89 74 85 96 14 25 36 15 75 95 35 
+        //nearvictory == 12 45 78 23 56 89 74 85 96 14 25 36 15 75 95 35
         var nearVictory = [[1,2],[4,5],[7,8],[2,3],[5,6],[8,9],[7,4],[8,5],[9,6],[1,4],[2,5],[3,6],[1,5],[7,5],[9,5],[3,5]];
-        var XWon = victoryConditions[i].every(function (val) { return $scope.Xed.indexOf(val) >= 0; });
-        var OWon = victoryConditions[i].every(function (val) { return $scope.Oed.indexOf(val) >= 0; });
-        
+        var XWon = function(){
+            var forReal = false;
+            for(var i = 0; i < victoryConditions.length; i++){
+                if (victoryConditions[i].every(function (val) { return $scope.Xed.indexOf(val) >= 0; }) == true){
+                    forReal = true;
+                };
+            }
+            return forReal;
+        };
+        var OWon = function(){
+            var forReal = false;
+            for(var i = 0; i < victoryConditions.length; i++){
+                if (victoryConditions[i].every(function (val) { return $scope.Oed.indexOf(val) >= 0; }) == true){
+                    forReal = true;
+                };
+            }
+            return forReal;
+        };
+        console.log(XWon());
+        console.log(OWon());
         
         //reset board if draw, full board
         if ($scope.blanks === []){
