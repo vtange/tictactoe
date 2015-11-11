@@ -97,12 +97,12 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
             mustBlock = mustBlock.sort(function(a,b){ return b.length > a.length;});
             mustBlock = parseInt(mustBlock.pop().join(""),10);
             //movement phase
-                    if (mustBlock.toString().length < 2){   //defend first,
+                    if (mustBlock.toString().length < 2 && $scope.blanks.indexOf(mustBlock) != -1){   //defend first,
                         console.log(mustBlock);
                         console.log("defending" + mustBlock);
                         $scope.compDraw(mustBlock);
                     }
-                    else if (justNeed.toString().length < 2){ //then win.
+                    else if (justNeed.toString().length < 2 && $scope.blanks.indexOf(justNeed) != -1){ //then win.
                         console.log(justNeed);
                         console.log("attacking" + justNeed);
                         $scope.compDraw(justNeed);
@@ -124,12 +124,12 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
             mustBlock = mustBlock.sort(function(a,b){ return b.length > a.length;});
             mustBlock = parseInt(mustBlock.pop().join(""),10);
             //movement phase
-                    if (mustBlock.toString().length < 2){   //defend first,
+                    if (mustBlock.toString().length < 2 && $scope.blanks.indexOf(mustBlock) != -1){   //defend first,
                         console.log(mustBlock);
                         console.log("defending" + mustBlock);
                         $scope.compDraw(mustBlock);
                     }
-                    else if (justNeed.toString().length < 2){ //then win.
+                    else if (justNeed.toString().length < 2 && $scope.blanks.indexOf(justNeed) != -1){ //then win.
                         console.log(justNeed);
                         console.log("attacking" + justNeed);
                         $scope.compDraw(justNeed);
