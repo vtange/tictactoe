@@ -97,7 +97,15 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
             mustBlock = mustBlock.sort(function(a,b){ return b.length > a.length;});
             mustBlock = parseInt(mustBlock.pop().join(""),10);
         }
-        
+        if (mustBlock.pop().join("").length < 2){   //defend first,
+            $scope.draw(mustBlock);
+        }
+        else if (justNeed.pop().join("").length < 2){ //then win.
+            $scope.draw(justNeed);
+        }
+        else{
+            $scope.draw($scope.blanks[Math.floor(Math.random() * ($scope.blanks.length))]);
+        }
         // how about just check Xed or Oed(depending on who the comp is) against victory conditions (filter out Xed/Oed from Victory conditions) and choose the shortest one?
         $scope.checkVictoryFull();
         $scope.whoseTurn = 1;
