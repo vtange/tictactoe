@@ -73,26 +73,29 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
         var OalreadyGot = function (input) {
           return Oed.indexOf(input) == -1;
         };
-        var findNextMove = function(a,b){ return b.length > a.length;};
         if ($scope.computer == 1){ // if Computer is O
             for (var i=0;i<victoryConditions.length;i++){
                 //get offense options
                  mustBlock.push(victoryConditions[i].filter(XalreadyGot));
-                 mustBlock.sort(findNextMove);
                 //get defense options
                  justNeed.push(victoryConditions[i].filter(OalreadyGot));
-                 justNeed.sort(findNextMove);
             }
+            justNeed = justNeed.sort(function(a,b){ return b.length > a.length;});
+            justNeed = parseInt(justNeed.pop().join(""),10);
+            mustBlock = mustBlock.sort(function(a,b){ return b.length > a.length;});
+            mustBlock = parseInt(mustBlock.pop().join(""),10);
         }
         else { // if Computer is X
             for (var i=0;i<victoryConditions.length;i++){
                 //get offense options
                  justNeed.push(victoryConditions[i].filter(XalreadyGot));
-                 justNeed.sort(findNextMove);
                 //get defense options
                  mustBlock.push(victoryConditions[i].filter(OalreadyGot));
-                 mustBlock.sort(findNextMove);
             }
+            justNeed = justNeed.sort(function(a,b){ return b.length > a.length;});
+            justNeed = parseInt(justNeed.pop().join(""),10);
+            mustBlock = mustBlock.sort(function(a,b){ return b.length > a.length;});
+            mustBlock = parseInt(mustBlock.pop().join(""),10);
         }
         
         // how about just check Xed or Oed(depending on who the comp is) against victory conditions (filter out Xed/Oed from Victory conditions) and choose the shortest one?
