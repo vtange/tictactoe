@@ -97,19 +97,19 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
             mustBlock = mustBlock.sort(function(a,b){ return b.length > a.length;});
             mustBlockNum = parseInt(mustBlock.pop().join(""),10);
             //movement phase
-                    if (mustBlockNum.toString().length < 2 && $scope.blanks.indexOf(mustBlockNum) != -1){   //defend first,
-                        console.log(mustBlockNum);
-                        console.log("defending" + mustBlockNum);
-                        $scope.compDraw(mustBlockNum);
-                    }
-                    else if (justNeedNum.toString().length < 2 && $scope.blanks.indexOf(justNeedNum) != -1){ //then win.
+                    if (justNeedNum.toString().length < 2 && $scope.blanks.indexOf(justNeedNum) != -1){ //win first.
                         console.log(justNeedNum);
                         console.log("attacking" + justNeedNum);
                         $scope.compDraw(justNeedNum);
                     }
+                    else if (mustBlockNum.toString().length < 2 && $scope.blanks.indexOf(mustBlockNum) != -1){   //defend second,
+                        console.log(mustBlockNum);
+                        console.log("defending" + mustBlockNum);
+                        $scope.compDraw(mustBlockNum);
+                    }
                     else{           //choose a random index from the available scope.blanks
                         $scope.compDraw($scope.blanks[Math.floor(Math.random() * ($scope.blanks.length))]);
-                        console.log("meh.");
+                        console.log("meh. " + mustBlockNum + " vs "+ justNeedNum);
                     }
         }
         else { // if Computer is X
@@ -124,15 +124,15 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
             mustBlock = mustBlock.sort(function(a,b){ return b.length > a.length;});
             mustBlockNum = parseInt(mustBlock.pop().join(""),10);
             //movement phase
-                    if (mustBlockNum.toString().length < 2 && $scope.blanks.indexOf(mustBlockNum) != -1){   //defend first,
-                        console.log(mustBlockNum);
-                        console.log("defending" + mustBlockNum);
-                        $scope.compDraw(mustBlockNum);
-                    }
-                    else if (justNeedNum.toString().length < 2 && $scope.blanks.indexOf(justNeedNum) != -1){ //then win.
+                    if (justNeedNum.toString().length < 2 && $scope.blanks.indexOf(justNeedNum) != -1){ //win first.
                         console.log(justNeedNum);
                         console.log("attacking" + justNeedNum);
                         $scope.compDraw(justNeedNum);
+                    }
+                    else if (mustBlockNum.toString().length < 2 && $scope.blanks.indexOf(mustBlockNum) != -1){   //defend second,
+                        console.log(mustBlockNum);
+                        console.log("defending" + mustBlockNum);
+                        $scope.compDraw(mustBlockNum);
                     }
                     else{           //choose a random index from the available scope.blanks
                         $scope.compDraw($scope.blanks[Math.floor(Math.random() * ($scope.blanks.length))]);
