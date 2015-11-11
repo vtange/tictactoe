@@ -96,10 +96,12 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
                  justNeed.push(victoryConditions[i].filter(OalreadyGot));
             }
             justNeed = justNeed.sort(function(a,b){ return b.length > a.length;});
-            justNeed = justNeed.filter(onlyOnes);
+            //justNeed = justNeed.filter(onlyOnes);
+            console.log(justNeed.filter(onlyOnes));
             justNeedNum = parseInt(justNeed.pop().join(""),10);
             mustBlock = mustBlock.sort(function(a,b){ return b.length > a.length;});
-            mustBlock = mustBlock.filter(onlyOnes);
+            //mustBlock = mustBlock.filter(onlyOnes);
+            console.log(mustBlock.filter(onlyOnes));
             mustBlockNum = parseInt(mustBlock.pop().join(""),10);
             //movement phase
                     if (justNeedNum.toString().length < 2 && $scope.blanks.indexOf(justNeedNum) != -1){ //win first.
