@@ -60,19 +60,43 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
         //start computer turn function
     };
     $scope.computerTurn = function(){
-        if ($scope.computer == 1){
-            if ($scope.Oed.indexOf(cellNum) == -1){
-                $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);
-                $scope.Oed.push(cellNum);
+        $scope.whoseTurn = 2;
+        //nearvictory == 12 45 78 23 56 89 74 85 96 14 25 36 15 75 95 35 19 73 71 93 79 13
+        var nearVictory = [[1,2],[4,5],[7,8],[2,3],[5,6],[8,9],[7,4],[8,5],[9,6],[1,4],[2,5],[3,6],[1,5],[7,5],[9,5],[3,5],[1,9],[7,3],[7,1],[9,3],[7,9],[1,3]];
+        var defense = function(){
+            var winningPattern = [];
+            for(var i = 0; i < nearVictory.length; i++){
+                if ($scope.player == 1;){
+                    if (nearVictory[i].every(function (val) { return $scope.Oed.indexOf(val) >= 0; }) == true){
+                        winningPattern = nearVictory[i];
+                    };
+                }
+                if ($scope.player == 2;){
+                    if (nearVictory[i].every(function (val) { return $scope.Xed.indexOf(val) >= 0; }) == true){
+                        winningPattern = nearVictory[i];
+                    };
+                }
             }
-        }
-        if ($scope.computer == 2){
-            if ($scope.Xed.indexOf(cellNum) == -1){
-                $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);
-                $scope.Xed.push(cellNum);
+            return winningPattern;
+        };
+        var offense = function(){
+            var winningPattern = [];
+            for(var i = 0; i < nearVictory.length; i++){
+                if ($scope.computer == 1;){
+                    if (nearVictory[i].every(function (val) { return $scope.Xed.indexOf(val) >= 0; }) == true){
+                        winningPattern = nearVictory[i];
+                    };
+                }
+                if ($scope.computer == 2;){
+                    if (nearVictory[i].every(function (val) { return $scope.Oed.indexOf(val) >= 0; }) == true){
+                        winningPattern = nearVictory[i];
+                    };
+                }
             }
-        }
-        //check if board is  full or victory
+            return winningPattern;
+        };
+        $scope.checkVictoryFull();
+        $scope.whoseTurn = 1;
     };
     $scope.checkClickable = function(cellnum){
         if ($scope.blanks.indexOf(cellnum) != -1){ return true; }else{return false;};
@@ -86,8 +110,6 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
     $scope.checkVictoryFull = function(){
         //victoryConditions == 123,456,789,963,852,741,159,753
         var victoryConditions = [[1,2,3],[4,5,6],[7,8,9],[9,6,3],[8,5,2],[7,4,1],[1,5,9],[7,5,3]];
-        //nearvictory == 12 45 78 23 56 89 74 85 96 14 25 36 15 75 95 35
-        var nearVictory = [[1,2],[4,5],[7,8],[2,3],[5,6],[8,9],[7,4],[8,5],[9,6],[1,4],[2,5],[3,6],[1,5],[7,5],[9,5],[3,5]];
         var XWon = function(){
             var forReal = false;
             for(var i = 0; i < victoryConditions.length; i++){
