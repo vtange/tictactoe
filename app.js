@@ -132,25 +132,34 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
                 //get defense options
                  mustBlock.push(victoryConditions[i].filter(OalreadyGot));
             }
+            //process information
             justNeed = justNeed.sort(function(a,b){ return b.length > a.length;});
             justNeed = justNeed.filter(onlyOnes);
-            justNeedNum = parseInt(justNeed.pop().join(""),10);
+
             mustBlock = mustBlock.sort(function(a,b){ return b.length > a.length;});
             mustBlock = mustBlock.filter(onlyOnes);
-            mustBlockNum = parseInt(mustBlock.pop().join(""),10);
             //movement phase
-                    if (justNeedNum.toString().length < 2 && $scope.blanks.indexOf(justNeedNum) != -1){ //win first.
-                        console.log("attacking" + justNeedNum);
-                        $scope.compDraw(justNeedNum);
-                    }
-                    else if (mustBlockNum.toString().length < 2 && $scope.blanks.indexOf(mustBlockNum) != -1){   //defend second,
-                        console.log("defending" + mustBlockNum);
-                        $scope.compDraw(mustBlockNum);
-                    }
-                    else{           //choose a random index from the available scope.blanks
-                        $scope.compDraw($scope.blanks[Math.floor(Math.random() * ($scope.blanks.length))]);
-                        console.log("meh.");
-                    }
+            //win first.
+                for (var k=1;k<justNeed.length;k++){//cycle attack options
+                        if (alreadyMoved == false && $scope.blanks.indexOf(parseInt(justNeed[k].join(""),10)) != -1){
+                            console.log("attacking" + parseInt(justNeed[k].join(""),10));
+                            $scope.compDraw(parseInt(justNeed[k].join(""),10));
+                            alreadyMoved = true;
+                        }
+                }
+            //defend second,
+                for (var k=1;k<mustBlock.length;k++){//cycle defense options
+                        if (alreadyMoved == false && $scope.blanks.indexOf(parseInt(mustBlock[k].join(""),10)) != -1){
+                            console.log("defending" + parseInt(mustBlock[k].join(""),10));
+                            $scope.compDraw(parseInt(mustBlock[k].join(""),10));
+                            alreadyMoved = true;
+                        }
+                }
+            //choose a random index from the available scope.blanks
+            if (alreadyMoved == false){
+                $scope.compDraw($scope.blanks[Math.floor(Math.random() * ($scope.blanks.length))]);
+                console.log("meh. ");
+            }
         }
         // how about just check Xed or Oed(depending on who the comp is) against victory conditions (filter out Xed/Oed from Victory conditions) and choose the shortest one?
         $scope.checkVictoryFull();
