@@ -1,6 +1,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="style-0.css"/>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
@@ -9,6 +10,8 @@
 </head>
 <body data-ng-app="Tictac">
   <div class="content">
+      <h1>Tic Tac Toe</h1>
+      <h3>Starts Alternate on Draw or Victory</h3>
                         <table class="game" data-ng-controller="MainCtrl as tac">
                             <tr>
                                 <td class="cell" id="1" data-ng-class="{'clickable': checkClickable(1)}" data-ng-click="draw(1)"><div class="entry"><div data-ng-if="checkX(1)" class="X1"></div><div data-ng-if="checkX(1)" class="X2"></div><div data-ng-if="checkO(1)" class="O"></div></div></td>

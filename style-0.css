@@ -7,9 +7,15 @@ body {
   min-height: 100vh;
   min-width:100vw;
   color: #ffffff;
+  font-family: "Orbitron";
   text-align: center;
-  padding-top: 15%;
+  padding-top: 8%;
 }
+h3{
+  padding-bottom: 4%;
+}
+
+
 
 .game{
   position: relative;
