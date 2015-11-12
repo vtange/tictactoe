@@ -74,6 +74,7 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
     };
     $scope.computerTurn = function(){
         $scope.whoseTurn = 2;
+        var alreadyMoved = false;
         var victoryConditions = [[1,2,3],[4,5,6],[7,8,9],[9,6,3],[8,5,2],[7,4,1],[1,5,9],[7,5,3]];
         var justNeed = [[100]];  // offense priority, 100 is placeholder
         var mustBlock = [[100]]; // defense priority, 100 is placeholder
@@ -95,34 +96,31 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
                 //get defense options
                  justNeed.push(victoryConditions[i].filter(OalreadyGot));
             }
+            //process information
             justNeed = justNeed.sort(function(a,b){ return b.length > a.length;});
             justNeed = justNeed.filter(onlyOnes);
 
             mustBlock = mustBlock.sort(function(a,b){ return b.length > a.length;});
             mustBlock = mustBlock.filter(onlyOnes);
             //movement phase
-            console.log($scope.blanks);
-            console.log(justNeed);
-            console.log(mustBlock);
-            if (justNeed.length > 1){               //win first.
+            //win first.
                 for (var k=1;k<justNeed.length;k++){//cycle attack options
-                        if ($scope.blanks.indexOf(parseInt(justNeed[k].join(""),10)) != -1){
+                        if (alreadyMoved == false && $scope.blanks.indexOf(parseInt(justNeed[k].join(""),10)) != -1){
                             console.log("attacking" + parseInt(justNeed[k].join(""),10));
                             $scope.compDraw(parseInt(justNeed[k].join(""),10));
-                            break;
+                            alreadyMoved = true;
                         }
                 }
-            }
-            else if (mustBlock.length > 1){         //defend second,
+            //defend second,
                 for (var k=1;k<mustBlock.length;k++){//cycle defense options
-                        if ($scope.blanks.indexOf(parseInt(mustBlock[k].join(""),10)) != -1){
+                        if (alreadyMoved == false && $scope.blanks.indexOf(parseInt(mustBlock[k].join(""),10)) != -1){
                             console.log("defending" + parseInt(mustBlock[k].join(""),10));
                             $scope.compDraw(parseInt(mustBlock[k].join(""),10));
-                            break;
+                            alreadyMoved = true;
                         }
                 }
-            }
-            else{           //choose a random index from the available scope.blanks
+            //choose a random index from the available scope.blanks
+            if (alreadyMoved == false){
                 $scope.compDraw($scope.blanks[Math.floor(Math.random() * ($scope.blanks.length))]);
                 console.log("meh. ");
             }
