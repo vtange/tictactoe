@@ -1,5 +1,8 @@
 body {
   text-align:center;
+  background-image: url(bg_blue2.png);
+  background-size: contain;
+  background-repeat: repeat-x;
   background-color: #012;
 }
 .content {
