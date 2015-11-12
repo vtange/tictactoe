@@ -75,6 +75,7 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
     $scope.computerTurn = function(){
         $scope.whoseTurn = 2;
         var alreadyMoved = false;
+        var strategicBias = [5,1,3,7,9];
         var victoryConditions = [[1,2,3],[4,5,6],[7,8,9],[9,6,3],[8,5,2],[7,4,1],[1,5,9],[7,5,3]];
         var justNeed = [[100]];  // offense priority, 100 is placeholder
         var mustBlock = [[100]]; // defense priority, 100 is placeholder
@@ -119,6 +120,14 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
                             alreadyMoved = true;
                         }
                 }
+            //cycle bias positions
+                for (var k=0;k<strategicBias.length;k++){
+                        if (alreadyMoved == false && $scope.blanks.indexOf(strategicBias[k]) != -1){
+                            console.log("taking" + strategicBias[k]);
+                            $scope.compDraw(strategicBias[k]);
+                            alreadyMoved = true;
+                        }
+                }
             //choose a random index from the available scope.blanks
             if (alreadyMoved == false){
                 $scope.compDraw($scope.blanks[Math.floor(Math.random() * ($scope.blanks.length))]);
@@ -152,6 +161,14 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
                         if (alreadyMoved == false && $scope.blanks.indexOf(parseInt(mustBlock[k].join(""),10)) != -1){
                             console.log("defending" + parseInt(mustBlock[k].join(""),10));
                             $scope.compDraw(parseInt(mustBlock[k].join(""),10));
+                            alreadyMoved = true;
+                        }
+                }
+            //cycle bias positions
+                for (var k=0;k<strategicBias.length;k++){
+                        if (alreadyMoved == false && $scope.blanks.indexOf(strategicBias[k]) != -1){
+                            console.log("taking" + strategicBias[k]);
+                            $scope.compDraw(strategicBias[k]);
                             alreadyMoved = true;
                         }
                 }
