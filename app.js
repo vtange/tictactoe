@@ -195,6 +195,7 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
             }
             return forReal;
         };
+        /*
         if (XWon() == true){
             alert("X wins.");
             $scope.resetBoard();
@@ -203,17 +204,17 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
             alert("O wins.");
             $scope.resetBoard();
         }
-        /*//to make this work, have whoseTurn cycle during start and end of ComputerTurn function.
+        */
+        //to make this work, have whoseTurn cycle during start and end of ComputerTurn function.
         if (XWon() == true || OWon() == true){
-            if (whoseTurn == 1){
+            if ($scope.whoseTurn == 1){
                 alert("You won.");
             }
-            if (whoseTurn == 2){
+            if ($scope.whoseTurn == 2){
                 alert("The Computer won.");
             }
             $scope.resetBoard();
         }
-        */
         //reset board if draw, full board
         if ($scope.blanks.length<1){
             alert("Draw.");
