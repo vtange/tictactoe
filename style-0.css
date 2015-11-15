@@ -17,9 +17,9 @@ body {
 h3{
   padding-bottom: 4%;
 }
-
-
-
+/*-------*/
+/*-GAME-*/
+/*-------*/
 .game{
   position: relative;
     width:40vh;
@@ -42,7 +42,7 @@ h3{
 }
 .cell:hover{
     background-color: rgba(0,255,0,0.5);
-    transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out; /*green hover effect*/
 }
 .clickable{
     cursor: pointer;   
@@ -55,7 +55,7 @@ h3{
     bottom:0;
 }
 .ng-animate {
-    opacity:0;
+    opacity:0;/*ANIMATE START FROM OPAC 0*/
 }
 .X1, .X2{
   background: #fff;
@@ -64,13 +64,13 @@ h3{
   position: absolute;
   transform-origin: 50% 100%;
   width: 2.5%;
-  -webkit-transition: all .1s ease;
+  -webkit-transition: all .1s ease; /*ANIM IN .1S*/
   -moz-transition: all .1s ease;
   -ms-transition: all .1s ease;
   -o-transition: all .1s ease;
   transition: all .1s ease;
 }
-.X1{transform: rotate(45deg) translateY(50%);}
+.X1{transform: rotate(45deg) translateY(50%);} /*starts page rotated, not part of Ng-anim*/
 .X2{transform: rotate(-45deg) translateY(50%);}
 
 

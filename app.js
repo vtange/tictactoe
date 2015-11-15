@@ -12,6 +12,7 @@ app.factory('memory', function(){
 
 app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, memory, alertify){
     $scope.storage = memory; // load service
+    //prompt user for X or O
     $scope.playerAsk = alertify
   .okBtn("O's")
   .cancelBtn("X's")
@@ -23,7 +24,7 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
       ev.preventDefault();
       $scope.player = 1;
       $scope.computer = 2;
-      alertify.success("You are O's");
+      alertify.success("You are O's");//Player is O
 
   }, function(ev) {
 
@@ -33,10 +34,10 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
       ev.preventDefault();
       $scope.player = 2;
       $scope.computer = 1;
-      alertify.error("You are X's");
+      alertify.error("You are X's");//Player is X
 
   });
-    $scope.whoseTurn = 1;
+    $scope.whoseTurn = 1;//Player Turn, if win, Player wins
     $scope.Xed = [];
     $scope.Oed = [];
     $scope.blanks = [1,2,3,4,5,6,7,8,9];
@@ -45,16 +46,16 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
             if ($scope.blanks.indexOf(cellNum) != -1){//if cellNum is blank
                 $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);//remove from blank
                 $scope.Oed.push(cellNum);//add to O list
-                $scope.checkVictoryFull();
-                $scope.computerTurn();
+                $scope.checkVictoryFull();//check if Player won or draw
+                $scope.computerTurn();//if not ^ start computer turn
             }
         }
         if ($scope.player == 2){// if Player is X
             if ($scope.blanks.indexOf(cellNum) != -1){//if cellNum is blank
                 $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);//remove from blank
                 $scope.Xed.push(cellNum);//add to X list
-                $scope.checkVictoryFull();
-                $scope.computerTurn();
+                $scope.checkVictoryFull();//check if Player won or draw
+                $scope.computerTurn();//if not ^ start computer turn
             }
         }
     };
@@ -73,9 +74,9 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
         }
     };
     $scope.computerTurn = function(){
-        $scope.whoseTurn = 2;
-        var alreadyMoved = false;
-        var strategicBias = [5,1,3,7,9];
+        $scope.whoseTurn = 2;//Computer Turn, if win, computer wins
+        var alreadyMoved = false;//1 move per computer turn. Change to true once moved.
+        var strategicBias = [5,2,3,6,9];//computer bias, do these before random number
         var victoryConditions = [[1,2,3],[4,5,6],[7,8,9],[9,6,3],[8,5,2],[7,4,1],[1,5,9],[7,5,3]];
         var justNeed = [[100]];  // offense priority, 100 is placeholder
         var mustBlock = [[100]]; // defense priority, 100 is placeholder
@@ -97,14 +98,14 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
                 //get defense options
                  justNeed.push(victoryConditions[i].filter(OalreadyGot));
             }
-            //process information
+            //process information, keep only arrays with one number
             justNeed = justNeed.sort(function(a,b){ return b.length > a.length;});
             justNeed = justNeed.filter(onlyOnes);
 
             mustBlock = mustBlock.sort(function(a,b){ return b.length > a.length;});
             mustBlock = mustBlock.filter(onlyOnes);
             //movement phase
-            //win first.
+            //win first. check for any available attack blanks, attack and Moved=true
                 for (var k=1;k<justNeed.length;k++){//cycle attack options
                         if (alreadyMoved == false && $scope.blanks.indexOf(parseInt(justNeed[k].join(""),10)) != -1){
                             console.log("attacking" + parseInt(justNeed[k].join(""),10));
@@ -112,7 +113,7 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
                             alreadyMoved = true;
                         }
                 }
-            //defend second,
+            //defend second, check for any available defense blanks, defend and Moved=true
                 for (var k=1;k<mustBlock.length;k++){//cycle defense options
                         if (alreadyMoved == false && $scope.blanks.indexOf(parseInt(mustBlock[k].join(""),10)) != -1){
                             console.log("defending" + parseInt(mustBlock[k].join(""),10));
@@ -141,14 +142,14 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
                 //get defense options
                  mustBlock.push(victoryConditions[i].filter(OalreadyGot));
             }
-            //process information
+            //process information, keep only arrays with one number
             justNeed = justNeed.sort(function(a,b){ return b.length > a.length;});
             justNeed = justNeed.filter(onlyOnes);
 
             mustBlock = mustBlock.sort(function(a,b){ return b.length > a.length;});
             mustBlock = mustBlock.filter(onlyOnes);
             //movement phase
-            //win first.
+            //win first. check for any available attack blanks, attack and Moved=true
                 for (var k=1;k<justNeed.length;k++){//cycle attack options
                         if (alreadyMoved == false && $scope.blanks.indexOf(parseInt(justNeed[k].join(""),10)) != -1){
                             console.log("attacking" + parseInt(justNeed[k].join(""),10));
@@ -156,7 +157,7 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
                             alreadyMoved = true;
                         }
                 }
-            //defend second,
+            //defend second, check for any available defense blanks, defend and Moved=true
                 for (var k=1;k<mustBlock.length;k++){//cycle defense options
                         if (alreadyMoved == false && $scope.blanks.indexOf(parseInt(mustBlock[k].join(""),10)) != -1){
                             console.log("defending" + parseInt(mustBlock[k].join(""),10));
@@ -178,18 +179,17 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
                 console.log("meh. ");
             }
         }
-        // how about just check Xed or Oed(depending on who the comp is) against victory conditions (filter out Xed/Oed from Victory conditions) and choose the shortest one?
-        $scope.checkVictoryFull();
-        $scope.whoseTurn = 1;
+        $scope.checkVictoryFull();//check if computer winning move or draw
+        $scope.whoseTurn = 1;//it's player's turn now
     };
     $scope.checkClickable = function(cellnum){
-        if ($scope.blanks.indexOf(cellnum) != -1){ return true; }else{return false;};
+        if ($scope.blanks.indexOf(cellnum) != -1){ return true; }else{return false;};//for css pointer mouse
     };
     $scope.checkX = function(cellnum){
-        if ($scope.Xed.indexOf(cellnum) != -1){ return true; }else{return false;};
+        if ($scope.Xed.indexOf(cellnum) != -1){ return true; }else{return false;};//for ng-if
     };
     $scope.checkO = function(cellnum){
-        if ($scope.Oed.indexOf(cellnum) != -1){ return true; }else{return false;};
+        if ($scope.Oed.indexOf(cellnum) != -1){ return true; }else{return false;};//for ng-if
     };
     $scope.checkVictoryFull = function(){
         //victoryConditions == 123,456,789,963,852,741,159,753
@@ -197,7 +197,7 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
         var XWon = function(){
             var forReal = false;
             for(var i = 0; i < victoryConditions.length; i++){
-                if (victoryConditions[i].every(function (val) { return $scope.Xed.indexOf(val) >= 0; }) == true){
+                if (victoryConditions[i].every(function (val) { return $scope.Xed.indexOf(val) >= 0; }) == true){//find one array in victoryconditions where Xed fills all numbers
                     forReal = true;
                 };
             }
@@ -206,7 +206,7 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
         var OWon = function(){
             var forReal = false;
             for(var i = 0; i < victoryConditions.length; i++){
-                if (victoryConditions[i].every(function (val) { return $scope.Oed.indexOf(val) >= 0; }) == true){
+                if (victoryConditions[i].every(function (val) { return $scope.Oed.indexOf(val) >= 0; }) == true){//find one array in victoryconditions where Oed fills all numbers
                     forReal = true;
                 };
             }
@@ -230,9 +230,9 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
             if ($scope.whoseTurn == 2){
                 alert("The Computer won.");
             }
-            $scope.resetBoard();
+            $scope.resetBoard();//fills blanks so bottom action doesn't fire
         }
-        //reset board if draw, full board
+        //reset board if no one won yet but full board
         if ($scope.blanks.length<1){
             alert("Draw.");
             $scope.resetBoard();
