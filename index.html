@@ -13,7 +13,7 @@
       <h1>Tic Tac Toe</h1>
       <h3>Starts Alternate on Draw or Victory</h3>
                         <table class="game" data-ng-controller="MainCtrl as tac">
-                            <tr><!--TABLE CELL<ENTRY--(centers entry)<"/" PART OF X><"\"PART OF X><"O">-->-->
+                            <tr><!--TABLE CELL with a space for ENTRY that can hold and X or O depending on checkX or checkO-->
                                 <td class="cell" data-ng-class="{'clickable': checkClickable(1)}" data-ng-click="draw(1)"><div class="entry"><div data-ng-if="checkX(1)" class="X1"></div><div data-ng-if="checkX(1)" class="X2"></div><div data-ng-if="checkO(1)" class="O"></div></div></td>
                                 <td class="cell" data-ng-class="{'clickable': checkClickable(2)}" data-ng-click="draw(2)"><div class="entry"><div data-ng-if="checkX(2)" class="X1"></div><div data-ng-if="checkX(2)" class="X2"></div><div data-ng-if="checkO(2)" class="O"></div></div></td>
                                 <td class="cell" data-ng-class="{'clickable': checkClickable(3)}" data-ng-click="draw(3)"><div class="entry"><div data-ng-if="checkX(3)" class="X1"></div><div data-ng-if="checkX(3)" class="X2"></div><div data-ng-if="checkO(3)" class="O"></div></div></td>
