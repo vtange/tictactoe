@@ -76,7 +76,7 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
     $scope.computerTurn = function(){
         $scope.whoseTurn = 2;//Computer Turn, if win, computer wins
         var alreadyMoved = false;//1 move per computer turn. Change to true once moved.
-        var strategicBias = [5,2,3,6,9];//computer bias, do these before random number
+        var strategicBias = [5,2,7,6,9];//computer bias, do these before random number
         var victoryConditions = [[1,2,3],[4,5,6],[7,8,9],[9,6,3],[8,5,2],[7,4,1],[1,5,9],[7,5,3]];
         var justNeed = [[100]];  // offense priority, 100 is placeholder
         var mustBlock = [[100]]; // defense priority, 100 is placeholder
