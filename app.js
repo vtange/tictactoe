@@ -1,16 +1,19 @@
 (function() {
     //start of function
-  var app = angular.module('Tictac', ['ngAnimate', 'ngAlertify']);
-
-app.factory('memory', function(){
+	var app = angular.module('Tictac', ['ngAnimate', 'ngAlertify']);
+		app.factory('memory', memory);
+		app.controller('MainCtrl', ['$scope', 'memory', 'alertify', MainCtrl]);
+	
+	
+function memory(){
 
   var storage = {};
  storage.datadata = [];
 
   return storage;
-});//end of service
+};
 
-app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, memory, alertify){
+function MainCtrl($scope, memory, alertify){
     $scope.storage = memory; // load service
     //prompt user for X or O
     $scope.playerAsk = alertify
@@ -244,6 +247,6 @@ app.controller('MainCtrl', ['$scope', 'memory', 'alertify', function($scope, mem
             $scope.blanks = [1,2,3,4,5,6,7,8,9];
     };
     
-}]);//end of controller
+};
   //end of function
 })();
