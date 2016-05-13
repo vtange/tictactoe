@@ -78,8 +78,9 @@ function MainCtrl($scope, alertify){
         $scope.whoseTurn = 2;//Computer Turn, if win, computer wins
         var alreadyMoved = false;//1 move per computer turn. Change to true once moved.
         var victoryConditions = [[1,2,3],[4,5,6],[7,8,9],[9,6,3],[8,5,2],[7,4,1],[1,5,9],[7,5,3]];
-        var justNeed = [[100]];  // offense priority, 100 is placeholder
-        var mustBlock = [[100]]; // defense priority, 100 is placeholder
+        var justNeed = [[100]];  // offense priority, 100 is placeholder so .sort has something to sort against
+        var mustBlock = [[100]]; // defense priority, 100 is placeholder so .sort has something to sort against
+		var opponent = [];
         //check what X has
         var XalreadyGot = function (input) {
           return $scope.Xed.indexOf(input) == -1;
@@ -93,6 +94,8 @@ function MainCtrl($scope, alertify){
         };
         if ($scope.computer == 1){ // if Computer is O
             for (var i=0;i<victoryConditions.length;i++){
+				//mark opponent
+				opponent = $scope.Xed;
                 //get offense options
                  mustBlock.push(victoryConditions[i].filter(XalreadyGot));
                 //get defense options
@@ -101,6 +104,8 @@ function MainCtrl($scope, alertify){
 		}
         else { // if Computer is X
             for (var i=0;i<victoryConditions.length;i++){
+				//mark opponent
+				opponent = $scope.Oed;
                 //get offense options
                  justNeed.push(victoryConditions[i].filter(XalreadyGot));
                 //get defense options
@@ -128,19 +133,36 @@ function MainCtrl($scope, alertify){
                             alreadyMoved = true;
                         }
                 }
-            //if 5 is played by opponent, play a corner
-				if ($scope.blanks.indexOf(5) != -1 && alreadyMoved == false){
-					$scope.compDraw(5);
+            //if 5 is played by opponent, play a corner (1 should always be avail)
+				if (opponent.length === 1 && opponent[0] === 5 && alreadyMoved == false){
+					$scope.compDraw(1);
 					alreadyMoved = true;
 				}
             //if corner is played by opponent, play opposite corner
-				if ($scope.blanks.indexOf(5) != -1 && alreadyMoved == false){
-					$scope.compDraw(5);
+				if (opponent.length === 1 && opponent[0]%2!==0 && alreadyMoved == false){
+					$scope.compDraw(function(){
+					switch(opponent[0]){
+						case 1: return 9;
+						case 3: return 7;
+						case 7: return 3;
+						case 9: return 1;
+					}}());
 					alreadyMoved = true;
 				}
             //otherwise, if 5 is not played yet, play 5
 				if ($scope.blanks.indexOf(5) != -1 && alreadyMoved == false){
 					$scope.compDraw(5);
+					alreadyMoved = true;
+				}
+			//play nearest corner to opponent
+				if (opponent.length < 3 && opponent[0]%2===0 && alreadyMoved == false){
+					$scope.compDraw(function(){
+					switch(opponent[0]){
+						case 2: return 1;
+						case 4: return 3;
+						case 6: return 7;
+						case 8: return 9;
+					}}());
 					alreadyMoved = true;
 				}
             //choose a random index from the available scope.blanks
