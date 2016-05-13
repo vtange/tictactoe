@@ -32,12 +32,12 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/*.js': ['coverage']
+      'app.js': ['coverage']
     },
 
     coverageReporter: {
       type : 'html',
-      type : 'text-summary',
+      //type : 'text-summary',
       dir : 'coverage/'
     },
 
