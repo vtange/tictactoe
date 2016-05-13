@@ -33,23 +33,29 @@ function MainCtrl($scope, alertify){
     $scope.Xed = [];
     $scope.Oed = [];
     $scope.blanks = [1,2,3,4,5,6,7,8,9];
+	$scope.endPhase = function(){
+		$scope.checkVictoryFull();//check if Player won or draw
+		if($scope.whoseTurn === 1){
+        	$scope.computerTurn();//if player just went it's comp's turn
+		}
+		else{
+        	$scope.whoseTurn = 1;//if comp just went it's player's turn now
+		}	
+	}
     $scope.draw = function(cellNum){
         if ($scope.player == 1){// if Player is O
             if ($scope.blanks.indexOf(cellNum) != -1){//if cellNum is blank
                 $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);//remove from blank
                 $scope.Oed.push(cellNum);//add to O list
-                $scope.checkVictoryFull();//check if Player won or draw
-                $scope.computerTurn();//if not ^ start computer turn
             }
         }
         if ($scope.player == 2){// if Player is X
             if ($scope.blanks.indexOf(cellNum) != -1){//if cellNum is blank
                 $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);//remove from blank
                 $scope.Xed.push(cellNum);//add to X list
-                $scope.checkVictoryFull();//check if Player won or draw
-                $scope.computerTurn();//if not ^ start computer turn
             }
         }
+		$scope.endPhase();
     };
     $scope.compDraw = function(cellNum){
         if ($scope.computer == 1){// if Computer is O
@@ -140,8 +146,7 @@ function MainCtrl($scope, alertify){
             }
 		
 		//end phase
-        $scope.checkVictoryFull();//check if computer winning move or draw
-        $scope.whoseTurn = 1;//it's player's turn now
+		$scope.endPhase();
     };
     $scope.checkClickable = function(cellnum){
         if ($scope.blanks.indexOf(cellnum) != -1){ return true; }else{return false;};//for css pointer mouse
