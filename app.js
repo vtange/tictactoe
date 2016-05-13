@@ -68,7 +68,6 @@ function MainCtrl($scope, alertify){
     $scope.computerTurn = function(){
         $scope.whoseTurn = 2;//Computer Turn, if win, computer wins
         var alreadyMoved = false;//1 move per computer turn. Change to true once moved.
-        var strategicBias = [5,2,7,6,9];//computer bias, do these before random number
         var victoryConditions = [[1,2,3],[4,5,6],[7,8,9],[9,6,3],[8,5,2],[7,4,1],[1,5,9],[7,5,3]];
         var justNeed = [[100]];  // offense priority, 100 is placeholder
         var mustBlock = [[100]]; // defense priority, 100 is placeholder
@@ -90,43 +89,7 @@ function MainCtrl($scope, alertify){
                 //get defense options
                  justNeed.push(victoryConditions[i].filter(OalreadyGot));
             }
-            //process information, keep only arrays with one number
-            justNeed = justNeed.sort(function(a,b){ return b.length > a.length;});
-            justNeed = justNeed.filter(onlyOnes);
-
-            mustBlock = mustBlock.sort(function(a,b){ return b.length > a.length;});
-            mustBlock = mustBlock.filter(onlyOnes);
-            //movement phase
-            //win first. check for any available attack blanks, attack and Moved=true
-                for (var k=1;k<justNeed.length;k++){//cycle attack options
-                        if (alreadyMoved == false && $scope.blanks.indexOf(parseInt(justNeed[k].join(""),10)) != -1){
-                            console.log("attacking" + parseInt(justNeed[k].join(""),10));
-                            $scope.compDraw(parseInt(justNeed[k].join(""),10));
-                            alreadyMoved = true;
-                        }
-                }
-            //defend second, check for any available defense blanks, defend and Moved=true
-                for (var k=1;k<mustBlock.length;k++){//cycle defense options
-                        if (alreadyMoved == false && $scope.blanks.indexOf(parseInt(mustBlock[k].join(""),10)) != -1){
-                            console.log("defending" + parseInt(mustBlock[k].join(""),10));
-                            $scope.compDraw(parseInt(mustBlock[k].join(""),10));
-                            alreadyMoved = true;
-                        }
-                }
-            //cycle bias positions
-                for (var k=0;k<strategicBias.length;k++){
-                        if (alreadyMoved == false && $scope.blanks.indexOf(strategicBias[k]) != -1){
-                            console.log("taking" + strategicBias[k]);
-                            $scope.compDraw(strategicBias[k]);
-                            alreadyMoved = true;
-                        }
-                }
-            //choose a random index from the available scope.blanks
-            if (alreadyMoved == false){
-                $scope.compDraw($scope.blanks[Math.floor(Math.random() * ($scope.blanks.length))]);
-                console.log("meh. ");
-            }
-        }
+		}
         else { // if Computer is X
             for (var i=0;i<victoryConditions.length;i++){
                 //get offense options
@@ -134,6 +97,7 @@ function MainCtrl($scope, alertify){
                 //get defense options
                  mustBlock.push(victoryConditions[i].filter(OalreadyGot));
             }
+		}
             //process information, keep only arrays with one number
             justNeed = justNeed.sort(function(a,b){ return b.length > a.length;});
             justNeed = justNeed.filter(onlyOnes);
@@ -144,7 +108,6 @@ function MainCtrl($scope, alertify){
             //win first. check for any available attack blanks, attack and Moved=true
                 for (var k=1;k<justNeed.length;k++){//cycle attack options
                         if (alreadyMoved == false && $scope.blanks.indexOf(parseInt(justNeed[k].join(""),10)) != -1){
-                            console.log("attacking" + parseInt(justNeed[k].join(""),10));
                             $scope.compDraw(parseInt(justNeed[k].join(""),10));
                             alreadyMoved = true;
                         }
@@ -152,25 +115,31 @@ function MainCtrl($scope, alertify){
             //defend second, check for any available defense blanks, defend and Moved=true
                 for (var k=1;k<mustBlock.length;k++){//cycle defense options
                         if (alreadyMoved == false && $scope.blanks.indexOf(parseInt(mustBlock[k].join(""),10)) != -1){
-                            console.log("defending" + parseInt(mustBlock[k].join(""),10));
                             $scope.compDraw(parseInt(mustBlock[k].join(""),10));
                             alreadyMoved = true;
                         }
                 }
-            //cycle bias positions
-                for (var k=0;k<strategicBias.length;k++){
-                        if (alreadyMoved == false && $scope.blanks.indexOf(strategicBias[k]) != -1){
-                            console.log("taking" + strategicBias[k]);
-                            $scope.compDraw(strategicBias[k]);
-                            alreadyMoved = true;
-                        }
-                }
+            //if 5 is played by opponent, play a corner
+				if ($scope.blanks.indexOf(5) != -1 && alreadyMoved == false){
+					$scope.compDraw(5);
+					alreadyMoved = true;
+				}
+            //if corner is played by opponent, play opposite corner
+				if ($scope.blanks.indexOf(5) != -1 && alreadyMoved == false){
+					$scope.compDraw(5);
+					alreadyMoved = true;
+				}
+            //if 5 is not played, play 5
+				if ($scope.blanks.indexOf(5) != -1 && alreadyMoved == false){
+					$scope.compDraw(5);
+					alreadyMoved = true;
+				}
             //choose a random index from the available scope.blanks
             if (alreadyMoved == false){
                 $scope.compDraw($scope.blanks[Math.floor(Math.random() * ($scope.blanks.length))]);
-                console.log("meh. ");
             }
-        }
+		
+		//end phase
         $scope.checkVictoryFull();//check if computer winning move or draw
         $scope.whoseTurn = 1;//it's player's turn now
     };
@@ -204,16 +173,6 @@ function MainCtrl($scope, alertify){
             }
             return forReal;
         };
-        /*
-        if (XWon() == true){
-            alert("X wins.");
-            $scope.resetBoard();
-        }
-        if (OWon() == true){
-            alert("O wins.");
-            $scope.resetBoard();
-        }
-        */
         //to make this work, have whoseTurn cycle during start and end of ComputerTurn function.
         if (XWon() == true || OWon() == true){
             if ($scope.whoseTurn == 1){
