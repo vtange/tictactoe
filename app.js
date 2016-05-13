@@ -30,9 +30,12 @@ function MainCtrl($scope, alertify){
 
   });
     $scope.whoseTurn = 1;//Player Turn, if win, Player wins
-    $scope.Xed = [];
-    $scope.Oed = [];
-    $scope.blanks = [1,2,3,4,5,6,7,8,9];
+    $scope.resetBoard = function(){
+            $scope.Xed = [];
+            $scope.Oed = [];
+            $scope.blanks = [1,2,3,4,5,6,7,8,9];
+    };
+	$scope.resetBoard();
 	$scope.endPhase = function(){
 		$scope.checkVictoryFull();//check if Player won or draw
 		if($scope.whoseTurn === 1){
@@ -135,7 +138,7 @@ function MainCtrl($scope, alertify){
 					$scope.compDraw(5);
 					alreadyMoved = true;
 				}
-            //if 5 is not played, play 5
+            //otherwise, if 5 is not played yet, play 5
 				if ($scope.blanks.indexOf(5) != -1 && alreadyMoved == false){
 					$scope.compDraw(5);
 					alreadyMoved = true;
@@ -194,12 +197,6 @@ function MainCtrl($scope, alertify){
             $scope.resetBoard();
         }
     };
-    $scope.resetBoard = function(){
-            $scope.Xed = [];
-            $scope.Oed = [];
-            $scope.blanks = [1,2,3,4,5,6,7,8,9];
-    };
-    
 };
   //end of function
 })();
