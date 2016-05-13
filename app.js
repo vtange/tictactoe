@@ -1,20 +1,9 @@
 (function() {
     //start of function
 	var app = angular.module('Tictac', ['ngAnimate', 'ngAlertify']);
-		app.factory('memory', memory);
-		app.controller('MainCtrl', ['$scope', 'memory', 'alertify', MainCtrl]);
-	
-	
-function memory(){
+		app.controller('MainCtrl', ['$scope', 'alertify', MainCtrl]);
 
-  var storage = {};
- storage.datadata = [];
-
-  return storage;
-};
-
-function MainCtrl($scope, memory, alertify){
-    $scope.storage = memory; // load service
+function MainCtrl($scope, alertify){
     //prompt user for X or O
     $scope.playerAsk = alertify
   .okBtn("O's")
