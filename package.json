@@ -1,7 +1,7 @@
 {
-  "name": "smashing-article",
+  "name": "tic-tac-toe",
   "version": "0.0.0",
-  "description": "smashing-article ================",
+  "description": "Tic Tac Toe game app",
   "main": "index.js",
   "devDependencies": {
     "karma-coverage": "~0.2.4",
@@ -15,9 +15,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@github-ipsum.com/lorem--ipsum/smashing-article.git"
   },
-  "author": "",
+  "author": "Victor Tang",
   "license": "ISC",
   "directories": {
     "test": "test"
