@@ -4,6 +4,9 @@
 ## Tech
 AngularJS, ngAlertify, ngAnimate
 
+## Tested with:
+Karma, PhantomJS, Istanbul, Mocha, Chai, Sinon
+
 ## Niceties
 Computer Players
 
