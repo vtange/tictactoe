@@ -182,10 +182,9 @@ function MainCtrl($scope, alertify){
     $scope.checkO = function(cellnum){
         if ($scope.Oed.indexOf(cellnum) != -1){ return true; }else{return false;};//for ng-if
     };
-    $scope.checkVictoryFull = function(){
-        //victoryConditions == 123,456,789,963,852,741,159,753
-        var victoryConditions = [[1,2,3],[4,5,6],[7,8,9],[9,6,3],[8,5,2],[7,4,1],[1,5,9],[7,5,3]];
-        var XWon = function(){
+	//victoryConditions == 123,456,789,963,852,741,159,753
+    var victoryConditions = [[1,2,3],[4,5,6],[7,8,9],[9,6,3],[8,5,2],[7,4,1],[1,5,9],[7,5,3]];
+	$scope.XWon = function(){
             var forReal = false;
             for(var i = 0; i < victoryConditions.length; i++){
                 if (victoryConditions[i].every(function (val) { return $scope.Xed.indexOf(val) >= 0; }) == true){//find one array in victoryconditions where Xed fills all numbers
@@ -194,7 +193,7 @@ function MainCtrl($scope, alertify){
             }
             return forReal;
         };
-        var OWon = function(){
+	$scope.OWon = function(){
             var forReal = false;
             for(var i = 0; i < victoryConditions.length; i++){
                 if (victoryConditions[i].every(function (val) { return $scope.Oed.indexOf(val) >= 0; }) == true){//find one array in victoryconditions where Oed fills all numbers
@@ -203,8 +202,9 @@ function MainCtrl($scope, alertify){
             }
             return forReal;
         };
+    $scope.checkVictoryFull = function(){
         //to make this work, have whoseTurn cycle during start and end of ComputerTurn function.
-        if (XWon() == true || OWon() == true){
+        if ($scope.XWon() == true || $scope.OWon() == true){
             if ($scope.whoseTurn == 1){
                 alert("You won.");
             }
