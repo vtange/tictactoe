@@ -73,8 +73,7 @@ function MainCtrl($scope, alertify){
 			}
 		}
 		else{
-			//nothing happens
-			console.log("couldn't draw ->" + cellNum);
+			throw "couldn't draw ->" + cellNum;
 		}
     };
     $scope.computerThink = function(){
@@ -144,14 +143,9 @@ function MainCtrl($scope, alertify){
 				if ($scope.blanks.indexOf(5) != -1){
 					return 5;
 				}
-			//play nearest corner to opponent
-				if (opponent.length < 3 && opponent[0]%2===0){
-					if (opponent[0]<5){
-						return opponent[0]-1;
-					}
-					else{
-						return opponent[0]+1;
-					}
+			//if player plays 2 evens, play their corner
+				if ( opponent[0]%2===0 && opponent[1]%2===0 && opponent.length ===2){
+					return opponent[0]+opponent[1]-5;
 				}
             //choose a random index from the available scope.blanks
                 return $scope.blanks[Math.floor(Math.random() * ($scope.blanks.length))];
