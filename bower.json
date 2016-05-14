@@ -1,8 +1,8 @@
 {
-  "name": "smashing-article",
+  "name": "tic-tac-toe",
   "version": "0.0.0",
   "authors": [
-    "Sebastien <vaporzub@gmail.com>"
+    "Victor Tang <victortang1992@gmail.com>"
   ],
   "license": "MIT",
   "ignore": [
