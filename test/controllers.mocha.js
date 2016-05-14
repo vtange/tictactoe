@@ -198,6 +198,16 @@ describe('Tic Tac Toe Game: ', function() {
 			beforeEach(function() {
 				scope.blanks = [9];
 			});
+			it('should not be able to play anything other than 9', function() {
+				expect(function(){scope.compDraw(1)}).to.throw("couldn't draw ->1");
+				expect(function(){scope.compDraw(2)}).to.throw("couldn't draw ->2");
+				expect(function(){scope.compDraw(3)}).to.throw("couldn't draw ->3");
+				expect(function(){scope.compDraw(4)}).to.throw("couldn't draw ->4");
+				expect(function(){scope.compDraw(5)}).to.throw("couldn't draw ->5");
+				expect(function(){scope.compDraw(6)}).to.throw("couldn't draw ->6");
+				expect(function(){scope.compDraw(7)}).to.throw("couldn't draw ->7");
+				expect(function(){scope.compDraw(8)}).to.throw("couldn't draw ->8");
+			});
 			it('should target last available: 9', function() {
 				expect(scope.computerThink()).to.equal(9);
 			});
