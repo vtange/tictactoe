@@ -46,33 +46,36 @@ function MainCtrl($scope, alertify){
 		}	
 	}
     $scope.draw = function(cellNum){
-        if ($scope.player == 1){// if Player is O
-            if ($scope.blanks.indexOf(cellNum) != -1){//if cellNum is blank
+		if ($scope.blanks.indexOf(cellNum) != -1){//if cellNum is blank
+			if ($scope.player == 1){// if Player is O
                 $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);//remove from blank
                 $scope.Oed.push(cellNum);//add to O list
-            }
-        }
-        if ($scope.player == 2){// if Player is X
-            if ($scope.blanks.indexOf(cellNum) != -1){//if cellNum is blank
+			}
+			if ($scope.player == 2){// if Player is X
                 $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);//remove from blank
                 $scope.Xed.push(cellNum);//add to X list
-            }
-        }
-		$scope.endPhase();
+			}
+			$scope.endPhase();
+		}
+		else{
+			//nothing happens
+		}
     };
     $scope.compDraw = function(cellNum){
-        if ($scope.computer == 1){// if Computer is O
-            if ($scope.blanks.indexOf(cellNum) != -1){//if cellNum is blank
+		if ($scope.blanks.indexOf(cellNum) != -1){//if cellNum is blank
+			if ($scope.computer == 1){// if Computer is O
                 $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);//remove from blank
                 $scope.Oed.push(cellNum);//add to O list
-            }
-        }
-        if ($scope.computer == 2){// if Computer is X
-            if ($scope.blanks.indexOf(cellNum) != -1){//if cellNum is blank
+			}
+			if ($scope.computer == 2){// if Computer is X
                 $scope.blanks.splice($scope.blanks.indexOf(cellNum),1);//remove from blank
                 $scope.Xed.push(cellNum);//add to X list
-            }
-        }
+			}
+		}
+		else{
+			//nothing happens
+			console.log("couldn't draw ->" + cellNum);
+		}
     };
     $scope.computerThink = function(){
         var victoryConditions = [[1,2,3],[4,5,6],[7,8,9],[9,6,3],[8,5,2],[7,4,1],[1,5,9],[7,5,3]];
@@ -135,12 +138,7 @@ function MainCtrl($scope, alertify){
 				}
             //if corner is played by opponent, play opposite corner
 				if (opponent.length === 1 && opponent[0]%2!==0){
-					switch(opponent[0]){
-						case 1: return 9;
-						case 3: return 7;
-						case 7: return 3;
-						case 9: return 1;
-					};
+					return 10 - opponent[0];
 				}
             //otherwise, if 5 is not played yet, play 5
 				if ($scope.blanks.indexOf(5) != -1){
@@ -148,12 +146,12 @@ function MainCtrl($scope, alertify){
 				}
 			//play nearest corner to opponent
 				if (opponent.length < 3 && opponent[0]%2===0){
-					switch(opponent[0]){
-						case 2: return 1;
-						case 4: return 3;
-						case 6: return 7;
-						case 8: return 9;
-					};
+					if (opponent[0]<5){
+						return opponent[0]-1;
+					}
+					else{
+						return opponent[0]+1;
+					}
 				}
             //choose a random index from the available scope.blanks
                 return $scope.blanks[Math.floor(Math.random() * ($scope.blanks.length))];

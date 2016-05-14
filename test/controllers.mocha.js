@@ -103,6 +103,7 @@ describe('Tic Tac Toe Game: ', function() {
 			scope.player = 2;
 			scope.computer = 1;
 		});
+
 		describe('Player starts with 1', function() {
 			beforeEach(function() {
 				scope.draw(1);
@@ -116,6 +117,7 @@ describe('Tic Tac Toe Game: ', function() {
 				expect(scope.Oed[0]).to.equal(9);
 			});
 		});
+
 		describe('Player starts with 2', function() {
 			beforeEach(function() {
 				scope.draw(2);
@@ -128,30 +130,30 @@ describe('Tic Tac Toe Game: ', function() {
 			it('should have played 5 since player did not play 5', function() {
 				expect(scope.Oed[0]).to.equal(5);
 			});
-			
+
 			describe('Player then plays 4', function() {
 				beforeEach(function() {
 					scope.draw(4);
 				});
 
-				it('should have made a move', function() {
-					expect(scope.Oed.length).to.not.equal(1);
-				});
-
 				it('should have played 1 since player played 2 in first turn', function() {
 					expect(scope.Oed[1]).to.equal(1);
 				});
+
 				describe('Player then plays 6', function() {
 					beforeEach(function() {
+						//prevent resetBoard
+						sinon.stub(scope, 'resetBoard', function() {});
 						scope.draw(6);
 					});
 
-					it('should have made a move', function() {
-						expect(scope.Oed.length).to.not.equal(2);
+					it('should have played 9 to win', function() {
+						expect(scope.Oed[2]).to.equal(9);
 					});
 				});
 			});
 		});
+
 		describe('Player starts with 3', function() {
 			//swap players
 			beforeEach(function() {
@@ -168,6 +170,7 @@ describe('Tic Tac Toe Game: ', function() {
 				expect(scope.Xed[0]).to.equal(7);
 			});
 		});
+
 		describe('Player starts with 5', function() {
 			beforeEach(function() {
 				scope.draw(5);
@@ -180,14 +183,29 @@ describe('Tic Tac Toe Game: ', function() {
 			it('should have played 1 since player played 5', function() {
 				expect(scope.Oed[0]).to.equal(1);
 			});
+
+			describe('Player then plays 3', function() {
+				beforeEach(function() {
+					scope.Xed = [5,3];
+				});
+				it('should defend at 7', function() {
+					expect(scope.computerThink()).to.equal(7);
+				});
+			});
 		});
 
-
+		describe('Random Final Move', function() {
+			beforeEach(function() {
+				scope.blanks = [9];
+			});
+			it('should target last available: 9', function() {
+				expect(scope.computerThink()).to.equal(9);
+			});
+		});
 	});
 
 	describe('Victory Conditions', function() {
 
-		//
 		beforeEach(function() {
 			scope.Xed = [1,2,6,9];
 			scope.Oed = [5,7,8];
@@ -219,6 +237,7 @@ describe('Tic Tac Toe Game: ', function() {
 			});
 
 		});
+
 		describe('Computer X Wins', function() {
 
 			beforeEach(function() {
